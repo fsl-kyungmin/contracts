@@ -52,6 +52,8 @@ describe("OrderBooks", () => {
     buyBook = Utils.fromUtf8(`${pair}-BUYBOOK`)
     sellBook = Utils.fromUtf8(`${pair}-SELLBOOK`)
 
+    console.log("buy", buyBook)
+    console.log("sell", sellBook)
     orderBooks.addToOrderbooks(buyBook, 0);
     orderBooks.addToOrderbooks(sellBook, 1);
 
@@ -77,7 +79,8 @@ describe("OrderBooks", () => {
     await expect(orderBooks.initialize()).to.be.revertedWith("Initializable: contract is already initialized");
   });
 
-  it("Should not allow matchTrade() from non-owners of OrderBooks", async () => {
+  it("Should not allow " +
+    "matchTrade() from non-owners of OrderBooks", async () => {
     await expect(orderBooks.connect(other1).matchTrade(sellBook, Utils.toWei(`${sellPrices[0]}`), 1, 1))
       .to.be.revertedWith("AccessControl:");
   })
@@ -180,8 +183,6 @@ describe("OrderBooks", () => {
     expect(bestAsk.price).to.be.equal(Utils.toWei(Math.min(...sellPrices).toString()));
     expect(bestBid.orderId).to.be.equal("0x3130000000000000000000000000000000000000000000000000000000000000");
     expect(bestAsk.orderId).to.be.equal("0x3100000000000000000000000000000000000000000000000000000000000000");
-
-
   });
 
 

@@ -73,6 +73,7 @@ describe("Airdrop", function () {
 
     beforeEach(async function () {
         const { owner: owner1, admin: trader1, auctionAdmin: trader2 } = await f.getAccounts();
+
         owner = owner1;
         investor1 = trader1;
         investor2 = trader2;

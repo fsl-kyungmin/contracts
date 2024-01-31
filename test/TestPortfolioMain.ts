@@ -69,7 +69,6 @@ describe("Portfolio Main", () => {
         portfolioSub = portfolioS;
         portfolioBridgeMain =pbrigeMain;
 
-
     });
 
     it("Should not initialize again after deployment", async function () {

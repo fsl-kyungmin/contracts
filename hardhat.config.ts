@@ -7,13 +7,30 @@ import '@typechain/hardhat'
 import 'hardhat-contract-sizer'
 import 'solidity-coverage'
 import { HardhatUserConfig } from "hardhat/types";
-import "./tasks/print_accounts";
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
+let config: HardhatUserConfig;
 
-const config: HardhatUserConfig = {
+
+config = {
+  networks: {
+    hardhat: {},
+    avalanche: {
+      url: 'http://10.110.101.1:9650/ext/bc/C/rpc',
+      accounts: {
+        // https://hardhat.org/hardhat-network/docs/reference#accounts
+        mnemonic: process.env.MNEMONIC ?? 'test test test test test test test test test test test junk',
+        path: "m/44'/60'/0'/0", // https://support.avax.network/en/articles/7004986-what-derivation-paths-does-avalanche-use
+        initialIndex: 0,
+        count: 20,
+        passphrase: ''
+      },
+      gas: 50000000
+    }
+  },
+
   solidity: {
     version: "0.8.17",
     settings: {
@@ -41,17 +58,6 @@ const config: HardhatUserConfig = {
   mocha: {
     timeout: 600000
   },
-
-  networks: {
-    hardhat: {
-      gasPrice: 225000000000,
-      chainId: 1337,
-      accounts: {
-        accountsBalance: '1000000000000000000000000',
-        count: 20
-      }
-    },
-  },
-}
+};
 
 module.exports = config
